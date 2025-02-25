@@ -108,6 +108,23 @@ const verifyToken = (req, res, next) => {
 
 };
 
+app.get('/user',async(req,res)=>{
+  const token = req.cookies?.token;
+  
+  if (!token) return res.status(401).json(null);
+  
+  try {
+      const decoded = jwt.verify(token, secretKey);
+      req.user = decoded;
+      const info = await Usermodel.findById(req.user.userId);
+      return res.status(200).json(info);
+  } catch (err) {
+      return res.status(401).json(null);
+  }
+})
+
+
+
 
 app.use(verifyToken);
 
