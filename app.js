@@ -14,7 +14,7 @@ const secretKey = "supersecret";
 mongoose.connect(process.env.DBURL)
 .then((result) =>{ 
   console.log("Connected to MongoDB");
-  app.listen(3000);
+  app.listen(process.env.PORT);
 })
 .catch(err => console.error("Connection error:", err));
 
