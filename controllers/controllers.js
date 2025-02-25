@@ -24,7 +24,7 @@ async function uploadImage(req){
 exports.createBlog = async(req,res)=>{
     try {
       const url = await uploadImage(req);
-
+      console.log(req.body);
       const newblog = {
         title: req.body.title,
         imageurl : url,
