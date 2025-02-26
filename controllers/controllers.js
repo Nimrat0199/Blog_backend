@@ -56,6 +56,17 @@ exports.getBlogs = async(req,res)=>{
   }
 }
 
+exports.getUserBlogs = async(req,res)=>{
+  try{
+    const blogs = await dbfunc.getBlogsByUser(req.params.id);
+    if(blogs.length==0) return res.status(400).json({message:"No blogs present"})
+    return res.status(200).json(blogs);
+  }catch(err){
+    console.error(err);
+    return res.status(500).json({message:err.message});
+  }
+}
+
 exports.getBlog=async(req,res)=>{
   try{
     const blog = await dbfunc.getBlogById(req.params.id);

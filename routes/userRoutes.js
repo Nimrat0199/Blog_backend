@@ -4,7 +4,7 @@ const func = require('../controllers/controllers')
 const upload = require('../multer');
 
 
-
+Routes.get('/userBlogs/:id',func.getUserBlogs);
 Routes.get('/blogs',func.getBlogs)
 Routes.post('/blogs',upload.single('file'),func.createBlog)
 Routes.get('/blogs/:id',func.getBlog)

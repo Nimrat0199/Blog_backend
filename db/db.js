@@ -3,6 +3,14 @@ const mongoose = require("mongoose");
 
 class dbfunc{
 
+
+    async getBlogsByUser(userId) {
+        try {
+            return await Blogmodel.find({ userId });
+        } catch (error) {
+            throw new Error("Error fetching user blogs:");
+        }
+      }
     
 
    // Get all blogs
@@ -16,9 +24,6 @@ class dbfunc{
     
     // Get a single blog by ID
     async getBlogById(blogId) {
-        if (!mongoose.Types.ObjectId.isValid(blogId)) {
-            throw new Error("Invalid Blog ID format");
-        }
         try {
             return await Blogmodel.findById(blogId);
         } catch (error) {
