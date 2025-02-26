@@ -30,6 +30,7 @@ exports.createBlog = async(req,res)=>{
         imageurl : url,
         content: req.body.content,
         userId: req.user.userId,
+        author: req.user.username,
         likes: 0,
         // category : req.body.category,
         views: 0,

@@ -33,6 +33,10 @@ const blogSchema = new Schema({
         required:true,
     },
     userId: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
+    author:{
+        type:String,
+        required:true,
+    },
     likes:{
         type:Number,
         required:true,
