@@ -3,6 +3,13 @@ const mongoose = require("mongoose");
 
 class dbfunc{
 
+    async searchBlog(text){
+        try {
+            return await Blogmodel.find({ title: { $regex: text, $options: "i" } });
+        } catch (error) {
+            throw new Error("Error fetching searched blogs:");
+        }
+    }
 
     async getBlogsByUser(userId) {
         try {

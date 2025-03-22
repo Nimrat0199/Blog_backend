@@ -15,6 +15,6 @@ Routes.get('/blogs/:id/comments',func.getComments)
 Routes.post('/blogs/:id/comments',func.createComment)
 Routes.put('/blogs/:id/comments/:id1',func.updateComment)
 Routes.delete('/blogs/:id/comments/:id1',func.delComment)
-
+Routes.post('/search',func.searchBlogs)
 
 module.exports = Routes;

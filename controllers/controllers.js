@@ -57,6 +57,17 @@ exports.getBlogs = async(req,res)=>{
   }
 }
 
+exports.searchBlogs = async(req,res)=>{
+  try{
+    const result = await dbfunc.searchBlog(req.body.text);
+    if(result.length==0) return res.status(400).json({message:"Not Found"})
+    return res.status(200).json(result);
+  }catch(err){
+    console.error(err);
+    return res.status(500).json({message:err.message});
+  }
+}
+
 exports.getUserBlogs = async(req,res)=>{
   try{
     const blogs = await dbfunc.getBlogsByUser(req.params.id);
@@ -89,8 +100,16 @@ exports.updateBlog=async(req,res)=>{
   }
 }
 
+function getPublicId(url) {
+  const parts = url.split("/");
+  return parts.slice(-2).join("/").replace(/\.[^/.]+$/, ""); // Removes file extension
+}
+
 exports.updateBlogImg=async(req,res)=>{
   try{
+    const newblog = await dbfunc.getBlogById(req.params.id);
+    const publicId = getPublicId(newblog.imageurl);
+    const result = await cloudinary.uploader.destroy(publicId, { resource_type: "image" })
     const url = await uploadImage(req);
     const blog = await dbfunc.updateBlogById(req.params.id,{imageurl:url});
     return res.status(200).json(blog);
@@ -100,13 +119,11 @@ exports.updateBlogImg=async(req,res)=>{
   }
 }
 
-function getPublicId(url) {
-  const parts = url.split("/");
-  return parts.slice(-2).join("/").replace(/\.[^/.]+$/, ""); // Removes file extension
-}
+
 
 exports.delBlog=async(req,res)=>{
   try{
+    
     const blog = await dbfunc.deleteBlogById(req.params.id);
     const publicId = getPublicId(blog.imageurl);
     const result = await cloudinary.uploader.destroy(publicId, { resource_type: "image" })
@@ -151,6 +168,7 @@ exports.updateComment = async(req,res)=>{
 exports.delComment = async(req,res)=>{
   try{
     const comment = await dbfunc.deleteCommentById(req.params.id1);
+    console.log("commment is :" , comment);
     return res.status(200).json(comment);
   }catch(error){
     console.log(error);
