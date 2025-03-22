@@ -111,7 +111,7 @@ app.get('/user',async(req,res)=>{
   console.log("hello")
   const token = req.cookies?.token;
   console.log(token);
-  if (!token) return res.status(401).json({ message: 'Unauthorized' });
+  if (!token) return res.status(401).json(null);
   
   try {
       const decoded = jwt.verify(token, secretKey);
