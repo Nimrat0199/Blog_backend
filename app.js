@@ -24,7 +24,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 
 app.use(cors({
-  origin: [ 'https://blog-frontend-5vpq.onrender.com'],
+  origin: [ 'https://blog-frontend-5vpq.onrender.com' , 'http://localhost:5173'],
   credentials: true, // This allows cookies and sessions
 }));
 
@@ -109,9 +109,10 @@ const verifyToken = (req, res, next) => {
 };
 
 app.get('/user',async(req,res)=>{
+  console.log("hello")
   const token = req.cookies?.token;
-  
-  if (!token) return res.status(401).json(null);
+  console.log(token);
+  if (!token) return res.status(401).json({ message: 'Unauthorized' });
   
   try {
       const decoded = jwt.verify(token, secretKey);
