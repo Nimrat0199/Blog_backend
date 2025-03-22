@@ -23,10 +23,10 @@ app.use(express.static("public"));
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 
-// app.use(cors({
-//   origin: "http://localhost:5173", 
-//   credentials: true 
-// }));
+app.use(cors({
+  origin: [ 'https://blog-frontend-5vpq.onrender.com'],
+  credentials: true, // This allows cookies and sessions
+}));
 
 
 app.post("/signup", async (req, res) => {
