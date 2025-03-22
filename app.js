@@ -81,9 +81,9 @@ app.post("/login", async (req, res) => {
 app.post("/logout", (req, res) => {
   try{
     res.clearCookie("token", {
-      httpOnly: true,
-      secure: process.env.NODE_ENV === "production",
-      sameSite: "Strict",
+      httpOnly: true, // Prevent JavaScript access
+    secure: true,  // Use "true" for HTTPS in production
+    sameSite: 'None', // Cross-origin cookie sharing 
     });
   
     res.status(200).json({ message: "Logged out successfully" });
