@@ -8,6 +8,7 @@ const {Usermodel} = require('./models/mainModel');
 require('dotenv').config();
 const app = express();
 const Routes = require('./routes/userRoutes');
+const func = require('./controllers/controllers')
 
 const secretKey = "supersecret";
 
@@ -108,9 +109,7 @@ const verifyToken = (req, res, next) => {
 };
 
 app.get('/user',async(req,res)=>{
-  console.log("hello")
   const token = req.cookies?.token;
-  console.log(token);
   if (!token) return res.status(401).json(null);
   
   try {
@@ -124,7 +123,10 @@ app.get('/user',async(req,res)=>{
 })
 
 
-
+app.get('/blogs',func.getBlogs)
+app.get('/blogs/:id',func.getBlog)
+app.get('/blogs/:id/comments',func.getComments)
+app.post('/search',func.searchBlogs)
 
 app.use(verifyToken);
 
