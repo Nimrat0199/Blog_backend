@@ -25,7 +25,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 
 app.use(cors({
-  origin: [ 'https://blog-frontend-pied-iota.vercel.app/' , 'http://localhost:5173'],
+  origin: [ 'https://blog-frontend-pied-iota.vercel.app' , 'http://localhost:5173'],
   credentials: true, // This allows cookies and sessions
 }));
 
